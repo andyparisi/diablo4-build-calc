@@ -1,0 +1,16 @@
+.Planner
+  display: grid
+  grid-template-areas: 'helm doll doll empty1' 'chest doll doll amulet' 'gloves doll doll ring1' 'pants doll doll ring2' 'boots doll doll empty2' 'weapon1 empty3 weapon2 weapon3'
+  grid-template-columns: 85px 200px 85px 85px
+  grid-template-rows: 90px 90px 90px 90px 90px 110px
+  overflow: hidden
+  position: relative
+  max-width: 800px
+  border: 1px solid black
+
+.Doll
+  border: 1px solid orange
+  background: black
+  cursor: pointer
+  grid-area: doll
+  cursor: inherit
