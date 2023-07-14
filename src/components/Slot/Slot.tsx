@@ -3,7 +3,6 @@ import styles from './Slot.module.sass';
 import clsx from 'clsx';
 import { Slots } from '../../enums/slots';
 import { AppContext } from '../App/App';
-import { codexData } from '../../../data/codex-of-power';
 
 interface SlotProps {
 	className: string;
@@ -20,7 +19,6 @@ const Slot: FC<SlotProps> = ({ className, slot }) => {
 	});
 
 	const slotValue = equipment.get(slot);
-	console.log(codexData);
 
 	return <div className={slotClass}>{slotValue?.name}</div>;
 };

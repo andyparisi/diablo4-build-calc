@@ -23,4 +23,5 @@ module.exports = {
 		'@typescript-eslint/no-unsafe-assignment': 'off',
 		'@typescript-eslint/no-unsafe-call': 'off',
 	},
+	ignorePatterns: ['.eslintrc.cjs', '/database/*.json', '/data/*.js'],
 };

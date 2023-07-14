@@ -1,13 +1,24 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './Planner.module.sass';
 import Slot from '../Slot/Slot';
 import slotStyles from '../Slot/Slot.module.sass';
 import { Slots } from '../../enums/slots';
+import Doll from '../Doll/Doll';
 
 const Planner: FC = () => {
+	useEffect(() => {
+		async function getCodex() {
+			const codex = await import('../../../data/codex-of-power');
+			console.log(codex.codexData);
+		}
+		void getCodex();
+	}, []);
+
 	return (
 		<div className={styles.Planner}>
-			<div className={styles.Doll} />
+			<div className={styles.Doll}>
+				<Doll />
+			</div>
 			<Slot className={slotStyles.Helm} slot={Slots.Helm} />
 			<Slot className={slotStyles.Chest} slot={Slots.Chest} />
 			<Slot className={slotStyles.Gloves} slot={Slots.Gloves} />
