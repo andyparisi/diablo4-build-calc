@@ -4,7 +4,7 @@ import { Classes } from '../enums/classes';
 import { Slots } from '../enums/slots';
 
 export const defaultCharacterState: Character = {
-  class: Classes.BARBARIAN,
+  heroClass: Classes.BARBARIAN,
   name: 'Meatball',
   equipment: new Map([[Slots.Amulet, { name: "Mara's Kaleidoscope" }]]),
 };
