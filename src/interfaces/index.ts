@@ -1,7 +1,7 @@
-import { Dispatch } from "react";
-import { Classes } from "../enums/classes";
-import { Slots } from "../enums/slots";
-import { CharacterAction } from "../reducers/character";
+import { Dispatch } from 'react';
+import { Classes } from '../enums/classes';
+import { Slots } from '../enums/slots';
+import { CharacterAction } from '../reducers/character';
 
 export interface IAppContext {
   characterState: Character;
@@ -11,9 +11,9 @@ export interface IAppContext {
 export interface Character {
   class: Classes;
   name: string;
-  equipment: Map<Slots, Item | null>;
+  equipment: Map<Slots, Aspect | null>;
 }
 
-export interface Item {
+export interface Aspect {
   name: string;
 }
