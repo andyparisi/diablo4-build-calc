@@ -4,9 +4,9 @@ import { Classes } from '../enums/classes';
 import { Slots } from '../enums/slots';
 
 export const defaultCharacterState: Character = {
-  heroClass: Classes.BARBARIAN,
+  heroClass: Classes.SORCERER,
   name: 'Meatball',
-  equipment: new Map([[Slots.Amulet, { name: "Mara's Kaleidoscope" }]]),
+  equipment: new Map(),
 };
 
 export enum CharacterActions {
@@ -20,7 +20,7 @@ export type CharacterAction =
       type: CharacterActions.EQUIP;
       value: {
         slot: Slots;
-        aspect: Aspect;
+        aspect: [string, Aspect];
       };
     }
   | {

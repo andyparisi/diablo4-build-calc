@@ -25,7 +25,8 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
 
   return (
     <div className={slotClass} onClick={() => setSelectedSlot(slot)}>
-      {slotValue?.id}
+      <header>{Slots[slot]}</header>
+      {slotValue?.[0]}
     </div>
   );
 };

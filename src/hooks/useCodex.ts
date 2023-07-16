@@ -8,7 +8,9 @@ export default function useCodex() {
       const c = await import('../../data/codex-of-power');
       setCodex(c.codexData);
     }
-    void getCodex();
-  }, []);
+    if (!codex) {
+      void getCodex();
+    }
+  }, [codex]);
   return codex;
 }

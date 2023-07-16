@@ -1,4 +1,4 @@
-export type Codex = typeof import('../../data/codex-of-power').codexData;
+export type Codex = Omit<typeof import('../../data/codex-of-power').codexData, 'Categories'>;
 
 import { Dispatch } from 'react';
 import { Classes } from '../enums/classes';
@@ -13,7 +13,7 @@ export interface IAppContext {
 export interface Character {
   heroClass: Classes;
   name: string;
-  equipment: Map<Slots, Aspect | null>;
+  equipment: Map<Slots, [string, Aspect] | null>;
 }
 
 export interface Aspect {
@@ -29,4 +29,12 @@ export interface Aspect {
   dungeon: string;
   region: string;
   values: string[];
+  flavor: string;
+  slot: string;
+  dropLevel: number;
+  dropWeight: number;
 }
+
+export type AspectType = {
+  [k: string]: Aspect;
+};

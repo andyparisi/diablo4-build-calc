@@ -25,7 +25,7 @@ const Dialog: FC<DialogProps> = ({ open = false, onClose, children }) => {
   );
 
   useEffect(() => {
-    if (open) {
+    if (open && !dialogRef?.current?.open) {
       dialogRef?.current?.showModal();
     } else {
       dialogRef?.current?.close();
