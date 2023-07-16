@@ -29,7 +29,7 @@ const Planner: FC = () => {
     };
   }, [codex, heroClassName]);
 
-  const displayAspects = useMemo(() => {
+  const filteredAspects = useMemo(() => {
     let aspects = {};
     if (selectedSlot != null) {
       aspectTypesBySlot[selectedSlot].forEach((aspectType: keyof typeof AspectTypes) => {
@@ -43,9 +43,17 @@ const Planner: FC = () => {
       });
     }
     const output: Array<[string, Aspect]> = Object.entries(aspects);
-    console.log(output);
     return output;
   }, [selectedSlot, heroClassName, mergedAspects]);
+
+  const displayAspects = useMemo(() => {
+    if (selectedSlot == null) {
+      return filteredAspects;
+    }
+    const output = filteredAspects.filter(([, aspect]) => !aspect.slot || aspect.slot === Slots[selectedSlot]);
+    console.log(output);
+    return output;
+  }, [filteredAspects, selectedSlot]);
 
   if (!codex) {
     return <div>Loading...</div>;
