@@ -45,7 +45,7 @@ const Planner: FC = () => {
     const output = Object.entries(aspects).concat(
       selectedSlot == null
         ? []
-        : uniquesBySlot?.[selectedSlot].filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
+        : uniquesBySlot?.[selectedSlot]?.filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
     );
     return output as Array<[string, Aspect]>;
   }, [selectedSlot, heroClassName, mergedAspects, uniquesBySlot, heroClass]);
