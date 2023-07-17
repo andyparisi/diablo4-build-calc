@@ -1,14 +1,37 @@
+@import '../_variables'
+
 .Slot
-  border: 1px solid orange
+  border: 1px solid #222
   background: #333
   cursor: pointer
   color: white
+  position: relative
+  text-align: center
+
+  header
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    font-size: 15px
+    padding: 0 5px
+    text-align: left
 
   img
-    max-width: 100%
+    max-width: 60%
 
   &.isSelected
-    border-color: blue
+    border-color: #1a1a1a
+
+  &.isLegendary
+    background: $aspectBg
+    .SlotValue
+      color: $legendary
+
+  &.isUnique
+    background: $aspectBg
+    .SlotValue
+      color: $unique
 
   &.Helm
     grid-area: helm
@@ -45,3 +68,10 @@
 
   &.Weapon4
     grid-area: weapon4
+
+.SlotValue
+  position: absolute
+  bottom: 0
+  right: 0
+  left: 0
+  line-height: 18px

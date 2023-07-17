@@ -15,13 +15,14 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
   const {
     characterState: { equipment },
   } = useContext(AppContext);
+  const slotValue = equipment.get(slot);
   const slotClass = clsx({
     [styles.Slot]: true,
     [className]: className?.length,
     [styles.isSelected]: selectedSlot === slot,
+    [styles.isLegendary]: slotValue != null && slotValue[1].type === 'Legendary',
+    [styles.isUnique]: slotValue != null && slotValue[1].type === 'Unique',
   });
-
-  const slotValue = equipment.get(slot);
 
   return (
     <div className={slotClass} onClick={() => setSelectedSlot(slot)}>
@@ -29,7 +30,7 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
       {slotValue && (
         <>
           <img src={`/uniques/${slotValue[0].replace(/\s/, '_').replace(/[^A-Za-z0-9_-]/g, '')}.png`} />
-          <div>{slotValue?.[0]}</div>
+          <div className={styles.SlotValue}>{slotValue?.[0]}</div>
         </>
       )}
     </div>
