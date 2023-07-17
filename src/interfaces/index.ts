@@ -1,5 +1,3 @@
-export type Codex = Omit<typeof import('../../data/codex-of-power').codexData, 'Categories'>;
-
 import { Dispatch } from 'react';
 import { Classes } from '../enums/classes';
 import { Slots } from '../enums/slots';
@@ -33,8 +31,13 @@ export interface Aspect {
   slot: string;
   dropLevel: number;
   dropWeight: number;
+  class: Classes;
 }
 
 export type AspectType = {
   [k: string]: Aspect;
 };
+
+export type Codex = Omit<typeof import('../../data/codex-of-power').codexData, 'Categories'>;
+
+export type UniquesBySlot = { [key: number]: Array<[string, Aspect]> };

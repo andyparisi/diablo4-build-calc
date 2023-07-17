@@ -33,3 +33,24 @@ export const aspectTypesBySlot = {
   [Slots.Weapon_2H]: new Set([AspectTypes.Offensive]),
   [Slots.Shield]: new Set([AspectTypes.Defensive, AspectTypes.Utility]),
 };
+
+export const slotValues = new Map<string, Slots>([
+  ['Chest', Slots.Chest],
+  ['Helm', Slots.Helm],
+  ['Gloves', Slots.Gloves],
+  ['Pants', Slots.Pants],
+  ['Boots', Slots.Boots],
+  ['Amulet', Slots.Amulet],
+  ['Ring', Slots.Ring],
+  ['Weapon 1H', Slots.Weapon_1H],
+  ['Weapon 2H', Slots.Weapon_2H],
+  ['Shield', Slots.Shield],
+]);
+
+export const classValues = new Map<string, Classes>([
+  ['Barbarian', Classes.BARBARIAN],
+  ['Sorcerer', Classes.SORCERER],
+  ['Necromancer', Classes.NECROMANCER],
+  ['Druid', Classes.DRUID],
+  ['Rogue', Classes.ROGUE],
+]);

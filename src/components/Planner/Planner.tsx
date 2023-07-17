@@ -12,7 +12,7 @@ import AspectSelector from '../AspectSelector/AspectSelector';
 import { AspectTypes } from '../../enums/aspectTypes';
 
 const Planner: FC = () => {
-  const codex = useCodex();
+  const [codex, uniquesBySlot] = useCodex();
   const [selectedSlot, setSelectedSlot] = useState<Slots | null>(null);
   const {
     characterState: { heroClass },
@@ -29,7 +29,7 @@ const Planner: FC = () => {
     };
   }, [codex, heroClassName]);
 
-  const filteredAspects = useMemo(() => {
+  const selectedAspects = useMemo(() => {
     let aspects = {};
     if (selectedSlot != null) {
       aspectTypesBySlot[selectedSlot].forEach((aspectType: keyof typeof AspectTypes) => {
@@ -42,18 +42,13 @@ const Planner: FC = () => {
         };
       });
     }
-    const output: Array<[string, Aspect]> = Object.entries(aspects);
-    return output;
-  }, [selectedSlot, heroClassName, mergedAspects]);
-
-  const displayAspects = useMemo(() => {
-    if (selectedSlot == null) {
-      return filteredAspects;
-    }
-    const output = filteredAspects.filter(([, aspect]) => !aspect.slot || aspect.slot === Slots[selectedSlot]);
-    console.log(output);
-    return output;
-  }, [filteredAspects, selectedSlot]);
+    const output = Object.entries(aspects).concat(
+      selectedSlot == null
+        ? []
+        : uniquesBySlot?.[selectedSlot].filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
+    );
+    return output as Array<[string, Aspect]>;
+  }, [selectedSlot, heroClassName, mergedAspects, uniquesBySlot, heroClass]);
 
   if (!codex) {
     return <div>Loading...</div>;
@@ -72,7 +67,7 @@ const Planner: FC = () => {
       <Slot className={slotStyles.Weapon1} slot={Slots.Weapon_1H} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Weapon2} slot={Slots.Weapon_2H} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Weapon3} slot={Slots.Shield} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
-      <AspectSelector onClose={() => setSelectedSlot(null)} selectedSlot={selectedSlot} aspects={displayAspects} />
+      <AspectSelector onClose={() => setSelectedSlot(null)} selectedSlot={selectedSlot} aspects={selectedAspects} />
     </div>
   );
 };

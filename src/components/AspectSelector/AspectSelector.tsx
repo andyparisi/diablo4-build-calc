@@ -5,6 +5,7 @@ import Dialog from '../Dialog/Dialog';
 import { Aspect } from '../../interfaces';
 import { AppContext } from '../App/App';
 import { CharacterActions } from '../../reducers/character';
+import clsx from 'clsx';
 
 interface AspectSelectorProps {
   selectedSlot: Slots | null;
@@ -25,6 +26,7 @@ const AspectSelector: FC<AspectSelectorProps> = ({ selectedSlot, onClose, aspect
         <ol>
           {aspects.map(([name, aspect]) => (
             <li
+              className={clsx({ [styles.Unique]: aspect.type === 'Unique' })}
               key={name}
               onClick={() => {
                 characterDispatch({ type: CharacterActions.EQUIP, value: { slot: selectedSlot, aspect: [name, aspect] } });

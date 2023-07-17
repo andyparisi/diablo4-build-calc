@@ -4,7 +4,7 @@ import { Classes } from '../enums/classes';
 import { Slots } from '../enums/slots';
 
 export const defaultCharacterState: Character = {
-  heroClass: Classes.SORCERER,
+  heroClass: Classes.NECROMANCER,
   name: 'Meatball',
   equipment: new Map(),
 };
