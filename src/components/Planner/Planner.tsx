@@ -42,11 +42,13 @@ const Planner: FC = () => {
         };
       });
     }
-    const output = Object.entries(aspects).concat(
-      selectedSlot == null
-        ? []
-        : uniquesBySlot?.[selectedSlot]?.filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
-    );
+    const output = Object.entries(aspects)
+      .concat(
+        selectedSlot == null
+          ? []
+          : uniquesBySlot?.[selectedSlot]?.filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
+      )
+      .sort((a, b) => (a[0] < b[0] ? -1 : 1));
     return output as Array<[string, Aspect]>;
   }, [selectedSlot, heroClassName, mergedAspects, uniquesBySlot, heroClass]);
 

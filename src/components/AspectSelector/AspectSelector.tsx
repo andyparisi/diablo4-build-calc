@@ -23,18 +23,20 @@ const AspectSelector: FC<AspectSelectorProps> = ({ selectedSlot, onClose, aspect
     <Dialog open onClose={onClose}>
       <div className={styles.AspectSelector}>
         <header>{Slots[selectedSlot]}</header>
-        <ol>
+        <ul className={styles.List}>
           {aspects.map(([name, aspect]) => (
             <li
-              className={clsx({ [styles.Unique]: aspect.type === 'Unique' })}
+              className={clsx({ [styles.ListItem]: true, [styles.Unique]: aspect.type === 'Unique' })}
               key={name}
               onClick={() => {
                 characterDispatch({ type: CharacterActions.EQUIP, value: { slot: selectedSlot, aspect: [name, aspect] } });
                 onClose();
               }}
-            >{`${name} ${aspect.id}`}</li>
+            >
+              {name}
+            </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </Dialog>
   );
