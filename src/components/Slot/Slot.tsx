@@ -26,7 +26,12 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
   return (
     <div className={slotClass} onClick={() => setSelectedSlot(slot)}>
       <header>{Slots[slot]}</header>
-      {slotValue?.[0]}
+      {slotValue && (
+        <>
+          <img src={`/uniques/${slotValue[0].replace(/\s/, '_').replace(/[^A-Za-z0-9_-]/g, '')}.png`} />
+          <div>{slotValue?.[0]}</div>
+        </>
+      )}
     </div>
   );
 };
