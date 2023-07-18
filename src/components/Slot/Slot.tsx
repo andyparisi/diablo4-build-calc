@@ -29,7 +29,7 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
       <header>{Slots[slot]}</header>
       {slotValue && (
         <>
-          <img src={`/uniques/${slotValue[0].replace(/\s/, '_').replace(/[^A-Za-z0-9_-]/g, '')}.png`} />
+          <img src={`/uniques/${slotValue[0].replace(/\s/g, '_').replace(/[^A-Za-z0-9_-]/g, '')}.png`} />
           <div className={styles.SlotValue}>{slotValue?.[0]}</div>
         </>
       )}

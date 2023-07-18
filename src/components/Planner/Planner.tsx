@@ -3,7 +3,6 @@ import styles from './Planner.module.sass';
 import Slot from '../Slot/Slot';
 import slotStyles from '../Slot/Slot.module.sass';
 import { Slots } from '../../enums/slots';
-import Doll from '../Doll/Doll';
 import useCodex from '../../hooks/useCodex';
 import { AppContext } from '../App/App';
 import { aspectTypesBySlot, heroClassNames } from '../../constants';
@@ -58,7 +57,6 @@ const Planner: FC = () => {
 
   return (
     <div className={styles.Planner}>
-      <Doll />
       <Slot className={slotStyles.Helm} slot={Slots.Helm} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Chest} slot={Slots.Chest} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Gloves} slot={Slots.Gloves} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />

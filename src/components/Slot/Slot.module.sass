@@ -7,18 +7,20 @@
   color: white
   position: relative
   text-align: center
+  display: flex
+  flex-direction: row
+  height: 120px
 
   header
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
     font-size: 15px
     padding: 0 5px
     text-align: left
+    writing-mode: vertical-lr
+    transform: rotate(-180deg)
+    text-align: center
 
   img
-    max-width: 60%
+    max-height: 100%
 
   &.isSelected
     border-color: #1a1a1a
@@ -70,8 +72,6 @@
     grid-area: weapon4
 
 .SlotValue
-  position: absolute
-  bottom: 0
-  right: 0
-  left: 0
   line-height: 18px
+  padding: 10px
+  font-family: 'Exocet'
