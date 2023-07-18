@@ -46,7 +46,7 @@ export default function useCodex(): [Codex | undefined, UniquesBySlot | undefine
     if (!codex) {
       void getCodex();
     }
-  }, [codex]);
+  }, []);
 
   return [codex, uniquesBySlot];
 }

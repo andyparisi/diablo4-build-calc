@@ -24,13 +24,19 @@ const Slot: FC<SlotProps> = ({ className, slot, selectedSlot, setSelectedSlot })
     [styles.isUnique]: slotValue != null && slotValue[1].type === 'Unique',
   });
 
+  console.log(slotValue?.[1].description);
+  const desc = slotValue?.[1].description.replace(/\//g, '-').replace(/{([^}]*)}/g, '<span>$1</span>') ?? '';
+
   return (
     <div className={slotClass} onClick={() => setSelectedSlot(slot)}>
       <header>{Slots[slot]}</header>
       {slotValue && (
         <>
           <img src={`/uniques/${slotValue[0].replace(/\s/g, '_').replace(/[^A-Za-z0-9_-]/g, '')}.png`} />
-          <div className={styles.SlotValue}>{slotValue?.[0]}</div>
+          <div className={styles.SlotValue}>
+            <div className={styles.Name}>{slotValue[0]}</div>
+            <div className={styles.Description} dangerouslySetInnerHTML={{ __html: desc }} />
+          </div>
         </>
       )}
     </div>
