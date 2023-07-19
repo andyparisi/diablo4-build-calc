@@ -3,7 +3,7 @@ import { Classes } from './enums/classes';
 import { Slots } from './enums/slots';
 import { Codex } from './interfaces/index';
 
-export const BUILD_NUMBER = 42942;
+export const BUILD_NUMBER = 43333;
 
 export const heroClassNames = new Map<Classes, keyof Codex>([
   [Classes.BARBARIAN, 'Barbarian'],
