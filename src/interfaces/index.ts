@@ -40,4 +40,8 @@ export type AspectType = {
 
 export type Codex = Omit<typeof import('../../data/codex-of-power').codexData, 'Categories'>;
 
-export type UniquesBySlot = { [key: number]: Array<[string, Aspect]> };
+export type UniquesBySlot = {
+  [categoryType: string]: {
+    [key: number]: Array<[string, Aspect]>;
+  };
+};

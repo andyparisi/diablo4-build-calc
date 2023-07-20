@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useMemo } from 'react';
+import { FC, useContext, useState, useMemo, useEffect } from 'react';
 import styles from './Planner.module.sass';
 import Slot from '../Slot/Slot';
 import slotStyles from '../Slot/Slot.module.sass';
@@ -9,14 +9,20 @@ import { aspectTypesBySlot, heroClassNames } from '../../constants';
 import { Aspect, AspectType } from '../../interfaces';
 import AspectSelector from '../AspectSelector/AspectSelector';
 import { AspectTypes } from '../../enums/aspectTypes';
+import { CharacterActions } from '../../reducers/character';
 
 const Planner: FC = () => {
   const [codex, uniquesBySlot] = useCodex();
   const [selectedSlot, setSelectedSlot] = useState<Slots | null>(null);
   const {
     characterState: { heroClass },
+    characterDispatch,
   } = useContext(AppContext);
   const heroClassName = heroClassNames.get(heroClass)!;
+
+  useEffect(() => {
+    characterDispatch({ type: CharacterActions.UNEQUIP_ALL, value: undefined });
+  }, [characterDispatch, heroClass]);
 
   const mergedAspects = useMemo(() => {
     if (!codex) {
@@ -41,15 +47,13 @@ const Planner: FC = () => {
         };
       });
     }
+
     const output = Object.entries(aspects)
-      .concat(
-        selectedSlot == null
-          ? []
-          : uniquesBySlot?.[selectedSlot]?.filter(([, unique]) => unique.class == null || unique.class === heroClass) ?? []
-      )
+      .concat(selectedSlot == null ? [] : uniquesBySlot?.['Generic']?.[selectedSlot] ?? [])
+      .concat(selectedSlot == null ? [] : uniquesBySlot?.[heroClassName]?.[selectedSlot] ?? [])
       .sort((a, b) => (a[0] < b[0] ? -1 : 1));
     return output as Array<[string, Aspect]>;
-  }, [selectedSlot, heroClassName, mergedAspects, uniquesBySlot, heroClass]);
+  }, [selectedSlot, heroClassName, mergedAspects, uniquesBySlot]);
 
   if (!codex) {
     return <div>Loading...</div>;
@@ -64,9 +68,10 @@ const Planner: FC = () => {
       <Slot className={slotStyles.Boots} slot={Slots.Boots} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Amulet} slot={Slots.Amulet} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Ring1} slot={Slots.Ring} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
+      <Slot className={slotStyles.Ring2} slot={Slots.Ring} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Weapon1} slot={Slots.Weapon_1H} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <Slot className={slotStyles.Weapon2} slot={Slots.Weapon_2H} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
-      <Slot className={slotStyles.Weapon3} slot={Slots.Shield} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
+      <Slot className={slotStyles.Offhand} slot={Slots.Shield} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} />
       <AspectSelector onClose={() => setSelectedSlot(null)} selectedSlot={selectedSlot} aspects={selectedAspects} />
     </div>
   );

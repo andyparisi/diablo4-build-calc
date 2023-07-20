@@ -9,7 +9,7 @@ export default function useCodex(): [Codex | undefined, UniquesBySlot | undefine
   useEffect(() => {
     async function getCodex() {
       const c: Codex = (await import('../../data/codex-of-power')).codexData;
-      const uniquesBySlot: UniquesBySlot = {};
+      const uniques: UniquesBySlot = {};
       Object.entries(c).forEach(([categoryName, category]) => {
         Object.entries(category).forEach(([aspectTypeName, aspectType]) => {
           Object.entries(aspectType as object).forEach(([name, aspect]) => {
@@ -19,7 +19,9 @@ export default function useCodex(): [Codex | undefined, UniquesBySlot | undefine
               let slot = slotValues.get(a.slot);
               // If it's not quite there, find it
               if (slot == null) {
-                if (a.slot.startsWith('1H')) {
+                if (a.slot.endsWith('Shield')) {
+                  slot = Slots.Shield;
+                } else if (a.slot.startsWith('1H')) {
                   slot = Slots.Weapon_1H;
                 } else if (a.slot.startsWith('2H')) {
                   slot = Slots.Weapon_2H;
@@ -31,21 +33,25 @@ export default function useCodex(): [Codex | undefined, UniquesBySlot | undefine
               if (heroClass) {
                 a.class = heroClass;
               }
-              uniquesBySlot[slot] = uniquesBySlot[slot] ?? [];
+              uniques[categoryName] = uniques[categoryName] ?? {};
+              uniques[categoryName][slot] = uniques[categoryName][slot] ?? [];
               // Build out the set of uniques per slot
-              uniquesBySlot[slot].push([name, a]);
+              uniques[categoryName][slot].push([name, a]);
               // Delete the existing unique position
               delete (c as never)[categoryName][aspectTypeName][name];
             }
           });
         });
       });
-      setCodex(c);
-      setUniquesBySlot(uniquesBySlot);
+      if (!codex) {
+        setCodex(c);
+      }
+      if (!uniquesBySlot) {
+        setUniquesBySlot(uniques);
+        console.log(uniques);
+      }
     }
-    if (!codex) {
-      void getCodex();
-    }
+    void getCodex();
   }, []);
 
   return [codex, uniquesBySlot];
